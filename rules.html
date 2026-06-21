@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База знаний и правила | Protocol Revival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Специфичные стили для хаба правил */
+        .rules-hub-section {
+            padding: 140px 6% 80px 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 75vh;
+        }
+
+        .hub-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hub-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .hub-header p {
+            color: rgba(15, 23, 42, 0.6);
+            font-size: 1.1rem;
+        }
+
+        /* Сетка карточек */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Стиль карточки */
+        .hub-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Цветная плашка сверху карточки */
+        .card-banner {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        /* Делаем разные фоны для карточек как на референсе */
+        .banner-classic { background: linear-gradient(135deg, #3b82f6, #1d4ed8); } /* Синий */
+        .banner-admin { background: linear-gradient(135deg, #10b981, #047857); }   /* Зеленый */
+        .banner-warn { background: linear-gradient(135deg, #ef4444, #b91c1c); }    /* Красный */
+
+        /* Текстовая часть */
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .card-body p {
+            color: rgba(15, 23, 42, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            font-size: 0.8rem;
+            color: rgba(15, 23, 42, 0.4);
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Protocol Revival</a>
+        <div class="nav-links">
+            <a href="rules.html" class="active">Правила</a>
+            <a href="#">Для админов</a>
+            <a href="#">О сервере</a>
+        </div>
+        <a href="#" class="btn-support">❤ Поддержать сервер</a>
+    </nav>
+
+    <section class="rules-hub-section">
+        <div class="hub-header">
+            <h2>Документация проекта</h2>
+            <p>Выберите интересующий вас сервер или регламент для ознакомления</p>
+        </div>
+
+        <div class="hub-grid">
+            
+            <a href="classic-rules.html" class="hub-card">
+                <div class="card-banner banner-classic">CLASSIC #1</div>
+                <div class="card-body">
+                    <h3>Правила Classic сервера</h3>
+                    <p>Основной свод положений, обязанности игроков, правила зон, лимиты и запрещенные баги для сервера Classic.</p>
+                    <div class="card-footer">
+                        <span>📋 Нажмите для чтения</span>
+                        <span>Синхронизация: Живая</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="admin-rules.html" class="hub-card">
+                <div class="card-banner banner-admin">STAFF ONLY</div>
+                <div class="card-body">
+                    <h3>Регламент Администрации</h3>
+                    <p>Правила модерации, разбора тикетов, рамки наказаний и устав игровых мастеров проекта.</p>
+                    <div class="card-footer">
+                        <span>🔒 Доступно всем</span>
+                        <span>Синхронизация: Живая</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="faq-rules.html" class="hub-card">
+                <div class="card-banner banner-warn">МОДИФИКАЦИИ</div>
+                <div class="card-body">
+                    <h3>Запрещенные моды и FAQ</h3>
+                    <p>Список разрешенных и вредоносных модификаций клиента, а также ответы на частые технические вопросы.</p>
+                    <div class="card-footer">
+                        <span>🛡 Античит контроль</span>
+                        <span>Синхронизация: Живая</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <a href="index.html" class="footer-logo">Protocol Revival</a>
+                <p class="copyright">© 2024–2026 Protocol Revival</p>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Сайт</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="rules.html">Правила</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>О сервере</h4>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
