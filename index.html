@@ -21,17 +21,39 @@
 
     <header class="hero">
         <div class="hero-content">
+            
+            <div class="online-badge">
+                <span class="dot"></span> ОНЛАЙН · SCP: SECRET LABORATORY
+            </div>
+            
             <h1>Protocol <span>Revival</span></h1>
-            <p class="hero-subtitle">Атмосферный проект SCP: Secret Laboratory.</p>
-            <p class="hero-subtitle">Наши серверы</p>
+            
+            <p class="hero-subtitle">
+                Атмосферный проект SCP: Secret Laboratory.<br>
+                Честный баланс, уникальные механики, адекватная администрация.
+            </p>
+            
+            <div class="servers-label">Наши серверы</div>
+            
             <div class="ip-container">
-                <button class="btn-ip" data-ip="2.27.54.103:7777" onclick="copyIp(this)">
-                    CLASSIC <span class="copy-icon">📋</span>
+                <button class="btn-ip-new" data-ip="2.27.54.103:7777" onclick="copyIp(this)">
+                    <span class="server-type">CLASSIC</span>
+                    <span class="server-ip">2.27.54.103:7777</span>
+                    <svg class="copy-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
                 </button>
             </div>
         </div>
-    </header>
 
+        <a href="#features" class="scroll-down">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        </a>
+    </header>
     <section class="features">
         <h2 class="features-title">Почему <span>Protocol Revival?</span></h2>
         <div class="cards-grid">
@@ -116,15 +138,23 @@
     <script>
         function copyIp(button) {
             const ip = button.getAttribute('data-ip');
-            const originalHTML = button.innerHTML;
+            // Ищем внутри кнопки именно блок с текстом IP
+            const ipSpan = button.querySelector('.server-ip');
+            const originalText = ipSpan.innerText;
+
             navigator.clipboard.writeText(ip).then(() => {
-                button.innerHTML = 'Успешно скопировано!';
+                // Меняем текст и добавляем класс для зеленой подсветки
+                ipSpan.innerText = 'Скопировано!';
                 button.classList.add('copied');
+                
+                // Возвращаем как было через 2 секунды
                 setTimeout(() => {
-                    button.innerHTML = originalHTML;
+                    ipSpan.innerText = originalText;
                     button.classList.remove('copied');
                 }, 2000);
-            }).catch(err => console.error('Ошибка при копировании: ', err));
+            }).catch(err => {
+                console.error('Ошибка при копировании: ', err);
+            });
         }
     </script>
 
