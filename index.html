@@ -4,36 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protocol Revival | SCP: Secret Laboratory</title>
-    <!-- Подключение современного шрифта Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Подключение внешнего файла стилей -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Шапка сайта (Навигация) -->
     <nav>
-        <!-- Клик по названию ведет на главную страницу -->
         <a href="index.html" class="logo">Protocol Revival</a>
-        
         <div class="nav-links">
             <a href="#">Правила</a>
             <a href="#">Для админов</a>
             <a href="#">О сервере</a>
         </div>
-        
         <a href="#" class="btn-support">❤ Поддержать сервер</a>
     </nav>
 
-    <!-- Главный экран (Hero-секция) -->
     <header class="hero">
         <div class="hero-content">
             <h1>Protocol <span>Revival</span></h1>
             <p class="hero-subtitle">Атмосферный проект SCP: Secret Laboratory.</p>
-            <p class="hero-subtitle">Наши сервера</p>
-            
+            <p class="hero-subtitle">Наши серверы</p>
             <div class="ip-container">
-                <!-- Кнопка копирования IP адреса -->
                 <button class="btn-ip" data-ip="2.27.54.103:7777" onclick="copyIp(this)">
                     CLASSIC <span class="copy-icon">📋</span>
                 </button>
@@ -41,51 +32,47 @@
         </div>
     </header>
 
-    <!-- Раздел достоинств (Карточки) -->
     <section class="features">
         <h2 class="features-title">Почему <span>Protocol Revival?</span></h2>
-        
         <div class="cards-grid">
-            <!-- Карточка 1 -->
+
             <div class="card">
+                <div class="card-num">01</div>
                 <div class="card-icon">⚡</div>
                 <h3>Атмосфера и баланс</h3>
                 <p>Мы тщательно настраиваем игровой баланс. Никакого дисбаланса, только честное противостояние МОГ, Повстанцев Хаоса, персонала и SCP.</p>
             </div>
 
-            <!-- Карточка 2 -->
             <div class="card">
+                <div class="card-num">02</div>
                 <div class="card-icon">🖥️</div>
                 <h3>Мощное железо</h3>
                 <p>Наш сервер работает на высокочастотных процессорах с современными NVMe накопителями. Минимальный пинг и стабильный TPS даже при самых тяжелых нагрузках.</p>
             </div>
 
-            <!-- Карточка 3 -->
             <div class="card">
+                <div class="card-num">03</div>
                 <div class="card-icon">🛠️</div>
                 <h3>Уникальные механики</h3>
                 <p>Собственные плагины, кастомные роли и проработанные ивенты, которые делают каждый раунд неповторимым и динамичным. Забудь про однообразие!</p>
             </div>
 
-            <!-- Карточка 4 -->
             <div class="card">
+                <div class="card-num">04</div>
                 <div class="card-icon">🛡️</div>
                 <h3>Адекватная администрация</h3>
                 <p>Администраторы оперативно пресекают любые нарушения правил. Мы создаем комфортную и ламповую среду для приятной игры по вечерам.</p>
             </div>
+
         </div>
     </section>
 
-    <!-- Подвал сайта (Футер) -->
     <footer>
         <div class="footer-container">
-            <!-- Блок с логотипом -->
             <div class="footer-info">
                 <a href="index.html" class="footer-logo">Protocol Revival</a>
                 <p class="copyright">© 2026 Protocol Revival</p>
             </div>
-            
-            <!-- Колонки ссылок (как на Ванилла Геймс) -->
             <div class="footer-links-grid">
                 <div class="footer-col">
                     <h4>Сайт</h4>
@@ -95,7 +82,6 @@
                         <li><a href="#">О сервере</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-col">
                     <h4>О сервере</h4>
                     <ul>
@@ -106,7 +92,6 @@
                         <li><a href="#">Настройки</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-col">
                     <h4>Полезное</h4>
                     <ul>
@@ -116,36 +101,30 @@
                         <li><a href="#">Дом в Майнкрафте</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-col">
                     <h4>Соцсети</h4>
                     <ul>
                         <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
                         <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
-                        <li><a href="https://www.tiktok.com/@desolationproject?_r=1&_t=ZS-97ObFQ6AZ1w">TikTok</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Логика интерактивного копирования IP -->
     <script>
         function copyIp(button) {
             const ip = button.getAttribute('data-ip');
-            const originalText = button.innerHTML;
-
+            const originalHTML = button.innerHTML;
             navigator.clipboard.writeText(ip).then(() => {
                 button.innerHTML = 'Успешно скопировано!';
                 button.classList.add('copied');
-                
                 setTimeout(() => {
-                    button.innerHTML = originalText;
+                    button.innerHTML = originalHTML;
                     button.classList.remove('copied');
                 }, 2000);
-            }).catch(err => {
-                console.error('Ошибка при копировании: ', err);
-            });
+            }).catch(err => console.error('Ошибка при копировании: ', err));
         }
     </script>
 
