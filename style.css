@@ -11,7 +11,6 @@
     --border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Базовые сбросы */
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +24,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- НАВИГАЦИЯ (ШАПКА) --- */
+/* --- НАВИГАЦИЯ --- */
 nav {
     position: fixed;
     top: 0;
@@ -62,7 +61,6 @@ nav {
     align-items: center;
 }
 
-/* Эффект капсулы при наведении как на скриншоте (Wiki) */
 .nav-links a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.85);
@@ -78,7 +76,6 @@ nav {
     color: #ffffff;
 }
 
-/* Кнопка поддержки */
 .btn-support {
     background-color: var(--accent-red);
     color: #ffffff;
@@ -97,7 +94,7 @@ nav {
     background-color: #dc2626;
 }
 
-/* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+/* --- HERO --- */
 .hero {
     height: 85vh;
     min-height: 600px;
@@ -105,7 +102,7 @@ nav {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+    background: linear-gradient(rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.82)),
                 url('hero.png') center/cover no-repeat;
     color: #ffffff;
     padding: 0 20px;
@@ -133,11 +130,15 @@ nav {
     font-size: 1.15rem;
     color: rgba(255, 255, 255, 0.75);
     line-height: 1.6;
-    margin-bottom: 40px;
+    margin-bottom: 12px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Интерактивная кнопка IP */
+.hero-subtitle:last-of-type {
+    margin-bottom: 40px;
+}
+
+/* Кнопка IP */
 .btn-ip {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -190,7 +191,7 @@ nav {
     opacity: 0.8;
 }
 
-/* --- ДОСТОИНСТВА (КАРТОЧКИ) --- */
+/* --- КАРТОЧКИ --- */
 .features {
     padding: 90px 6%;
     max-width: 1300px;
@@ -212,20 +213,31 @@ nav {
 
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
 }
 
 .card {
     background: var(--card-bg);
-    padding: 45px 30px;
+    padding: 40px 28px 36px;
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    border: 1px solid rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    position: relative;
 }
 
-/* Интерактивное увеличение и подсветка карточек */
+/* Номер карточки — новая деталь */
+.card-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(59, 130, 246, 0.35);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+/* Старый hover: подъём + синяя тень */
 .card:hover {
     transform: translateY(-8px);
     box-shadow: 0 22px 45px rgba(59, 130, 246, 0.12);
@@ -246,6 +258,7 @@ nav {
     transition: all 0.3s ease;
 }
 
+/* Старый hover на иконке: синий фон + ротация */
 .card:hover .card-icon {
     background: var(--accent-blue);
     color: #ffffff;
@@ -253,19 +266,19 @@ nav {
 }
 
 .card h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     color: var(--text-main);
 }
 
 .card p {
     color: var(--text-muted);
-    line-height: 1.6;
-    font-size: 0.95rem;
+    line-height: 1.65;
+    font-size: 0.93rem;
 }
 
-/* --- ПОДВАЛ (ФУТЕР) --- */
+/* --- ФУТЕР --- */
 footer {
     background-color: #ffffff;
     padding: 70px 6% 50px 6%;
@@ -339,19 +352,10 @@ footer {
     padding-left: 4px;
 }
 
-/* Адаптивность для мобильных */
+/* --- АДАПТИВ --- */
 @media (max-width: 768px) {
-    nav {
-        padding: 15px 4%;
-    }
-    .nav-links {
-        display: none; /* Для полноценного мобильного меню нужен бургер, пока скрываем */
-    }
-    .hero h1 {
-        font-size: 3rem;
-    }
-    .footer-container {
-        flex-direction: column;
-        gap: 40px;
-    }
+    nav { padding: 15px 4%; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .footer-container { flex-direction: column; gap: 40px; }
 }
