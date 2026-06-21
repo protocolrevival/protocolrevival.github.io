@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Специфичные стили для хаба правил */
+        /* Специфичные стили только для хаба правил */
         .rules-hub-section {
             padding: 140px 6% 80px 6%;
             max-width: 1200px;
@@ -23,34 +23,32 @@
         .hub-header h2 {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #0f172a;
+            color: #0f172a; /* Цвет под твой темный или светлый фон, если фон темный - измени на #fff */
             margin-bottom: 10px;
         }
 
         .hub-header p {
-            color: rgba(15, 23, 42, 0.6);
+            color: rgba(15, 23, 42, 0.6); /* Если фон темный, сделай rgba(255, 255, 255, 0.6) */
             font-size: 1.1rem;
         }
 
-        /* Сетка карточек */
         .hub-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
-        /* Стиль карточки */
         .hub-card {
             background: #ffffff;
             border-radius: 20px;
             border: 1px solid rgba(15, 23, 42, 0.06);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .hub-card:hover {
@@ -59,7 +57,6 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        /* Цветная плашка сверху карточки */
         .card-banner {
             height: 140px;
             display: flex;
@@ -69,15 +66,12 @@
             font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: 1px;
-            position: relative;
         }
 
-        /* Делаем разные фоны для карточек как на референсе */
-        .banner-classic { background: linear-gradient(135deg, #3b82f6, #1d4ed8); } /* Синий */
-        .banner-admin { background: linear-gradient(135deg, #10b981, #047857); }   /* Зеленый */
-        .banner-warn { background: linear-gradient(135deg, #ef4444, #b91c1c); }    /* Красный */
+        .banner-classic { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .banner-admin { background: linear-gradient(135deg, #10b981, #047857); }
+        .banner-warn { background: linear-gradient(135deg, #ef4444, #b91c1c); }
 
-        /* Текстовая часть */
         .card-body {
             padding: 25px;
             display: flex;
@@ -112,16 +106,18 @@
 </head>
 <body>
 
+    <!-- ТВОЯ ШАПКА -->
     <nav>
         <a href="index.html" class="logo">Protocol Revival</a>
         <div class="nav-links">
-            <a href="rules.html" class="active">Правила</a>
+            <a href="rules.html">Правила</a>
             <a href="#">Для админов</a>
             <a href="#">О сервере</a>
         </div>
         <a href="#" class="btn-support">❤ Поддержать сервер</a>
     </nav>
 
+    <!-- КОНТЕНТ ПРАВИЛ -->
     <section class="rules-hub-section">
         <div class="hub-header">
             <h2>Документация проекта</h2>
@@ -129,7 +125,6 @@
         </div>
 
         <div class="hub-grid">
-            
             <a href="classic-rules.html" class="hub-card">
                 <div class="card-banner banner-classic">CLASSIC #1</div>
                 <div class="card-body">
@@ -142,7 +137,7 @@
                 </div>
             </a>
 
-            <a href="admin-rules.html" class="hub-card">
+            <a href="#" class="hub-card">
                 <div class="card-banner banner-admin">STAFF ONLY</div>
                 <div class="card-body">
                     <h3>Регламент Администрации</h3>
@@ -154,7 +149,7 @@
                 </div>
             </a>
 
-            <a href="faq-rules.html" class="hub-card">
+            <a href="#" class="hub-card">
                 <div class="card-banner banner-warn">МОДИФИКАЦИИ</div>
                 <div class="card-body">
                     <h3>Запрещенные моды и FAQ</h3>
@@ -165,28 +160,50 @@
                     </div>
                 </div>
             </a>
-
         </div>
     </section>
 
+    <!-- ТВОЙ ПОДВАЛ -->
     <footer>
         <div class="footer-container">
             <div class="footer-info">
                 <a href="index.html" class="footer-logo">Protocol Revival</a>
-                <p class="copyright">© 2024–2026 Protocol Revival</p>
+                <p class="copyright">© 2026 Protocol Revival</p>
             </div>
             <div class="footer-links-grid">
                 <div class="footer-col">
                     <h4>Сайт</h4>
                     <ul>
-                        <li><a href="index.html">Главная</a></li>
                         <li><a href="rules.html">Правила</a></li>
+                        <li><a href="#">Для админов</a></li>
+                        <li><a href="#">О сервере</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>О сервере</h4>
                     <ul>
-                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Ванильные серверы</a></li>
+                        <li><a href="#">Сервер 1.21</a></li>
+                        <li><a href="#">Без вайпов</a></li>
+                        <li><a href="#">Как начать играть</a></li>
+                        <li><a href="#">Настройки</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Полезное</h4>
+                    <ul>
+                        <li><a href="#">Игра с друзьями</a></li>
+                        <li><a href="#">Выживание онлайн</a></li>
+                        <li><a href="#">Фермы</a></li>
+                        <li><a href="#">Дом в Майнкрафте</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцсети</h4>
+                    <ul>
+                        <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
                     </ul>
                 </div>
             </div>
