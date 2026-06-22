@@ -3,82 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Правила сервера Classic | Protocol Revival</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Документация Classic | Protocol Revival Wiki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        .rules-view-section {
-            padding: 140px 6% 60px 6%;
-            max-width: 1200px;
+        /* Плавная прокрутка к якорям */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px; /* Отступ сверху, чтобы шапка не перекрывала заголовки */
+        }
+
+        /* Главный контейнер для Вики */
+        .wiki-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 140px 4% 80px 4%;
         }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
+
+        /* ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ */
+        .wiki-sidebar {
+            position: sticky;
+            top: 120px; /* Фиксация при скролле */
+            height: max-content;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
             gap: 8px;
-            color: #3b82f6;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 10px 14px;
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 20px;
             font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
         }
-        
-        .back-link:hover {
-            text-decoration: underline;
+
+        .sidebar-menu a:hover {
+            background: rgba(59, 130, 246, 0.05);
+            color: var(--accent-blue);
+            padding-left: 18px;
         }
-        
-        .rules-card {
+
+        /* Состояние для активного/текущего раздела (можно вешать класс через JS, если захочешь) */
+        .sidebar-menu a.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ: КОНТЕНТ */
+        .wiki-content {
             background: #ffffff;
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-            border: 1px solid rgba(15, 23, 42, 0.05);
-            padding: 15px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
-        
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 80vh;
+
+        /* Стилизация разделов статьи */
+        .wiki-section {
+            margin-bottom: 60px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 40px;
         }
-        
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 12px;
+
+        .wiki-section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .wiki-section h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--bg-dark);
+            margin-bottom: 10px;
+        }
+
+        .wiki-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .wiki-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-top: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wiki-section p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        /* Кастомный блок примечания / плашки инфо */
+        .wiki-alert {
+            background: rgba(59, 130, 246, 0.04);
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Стили списков внутри контента */
+        .wiki-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .wiki-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* Адаптивность для мобилок */
+        @media (max-width: 992px) {
+            .wiki-container {
+                grid-template-columns: 1fr; /* Перестраиваем в одну колонку */
+                gap: 30px;
+                padding-top: 110px;
+            }
+
+            .wiki-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .wiki-content {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ТВОЯ ШАПКА -->
+    <!-- НАВИГАЦИЯ (Осталась без изменений) -->
     <nav>
         <a href="index.html" class="logo">Protocol Revival</a>
         <div class="nav-links">
+            <a href="wiki.html" style="background-color: rgba(255, 255, 255, 0.12); color: #ffffff;">Wiki</a>
             <a href="rules.html">Правила</a>
             <a href="#">Для админов</a>
-            <a href="#">О сервере</a>
+            <a href="#">О проекте</a>
         </div>
         <a href="#" class="btn-support">❤ Поддержать сервер</a>
     </nav>
 
-    <!-- ОКНО ЧТЕНИЯ -->
-    <section class="rules-view-section">
-        <a href="rules.html" class="back-link">← Назад к категориям</a>
+    <!-- ОСНОВНОЙ ДВУХКОЛОНОЧНЫЙ БЛОК ВИКИ -->
+    <div class="wiki-container">
         
-        <div class="rules-card">
-            <div class="iframe-container">
-                <!-- ВСТАВЬ СЮДА ССЫЛКУ ИЗ GOOGLE DOCS -->
-                <iframe src="https://docs.google.com/document/d/e/2PACX-1vSDxEomRXRaEJ_VpHdr-u4Oyhg13lcgJWkl51srqq7jcB0A8Yv18b3LZepca4VkZWG0ExUb6vav6Yy_/pub"></iframe>
-            </div>
-        </div>
-    </section>
+        <!-- ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ -->
+        <aside class="wiki-sidebar">
+            <div class="sidebar-title">Навигация по статье</div>
+            <ul class="sidebar-menu">
+                <li><a href="#about-server">О сервере Classic</a></li>
+                <li><a href="#spawn-rules">Тайминги и Спавны</a></li>
+                <li><a href="#914-recipes">Рецепты в SCP-914</a></li>
+                <li><a href="#server-commands">Команды консоли</a></li>
+                <li><a href="#faq">Частые вопросы</a></li>
+            </ul>
+        </aside>
 
-    <!-- ТВОЙ ПОДВАЛ -->
+        <!-- ПРАВАЯ ПАНЕЛЬ С КОНТЕНТОМ -->
+        <main class="wiki-content">
+            
+            <!-- Секция 1 -->
+            <section id="about-server" class="wiki-section">
+                <h1>Сервер Classic #1</h1>
+                <div class="wiki-meta">Последнее обновление: Сегодня | Редактор: Команда Системы</div>
+                <p>
+                    Classic #1 — это базовый сервер проекта Protocol Revival, нацеленный на сохранение оригинальной соревновательной и атмосферной механики SCP: Secret Laboratory с точечными улучшениями для комфорта игроков.
+                </p>
+                <div class="wiki-alert">
+                    <strong>Внимание сотрудникам:</strong> На сервере действует стандартный регламент соблюдения игровых правил. За умышленное затягивание раунда предусмотрены административные наказания.
+                </div>
+            </section>
+
+            <!-- Секция 2 -->
+            <section id="spawn-rules" class="wiki-section">
+                <h2>Тайминги и подкрепления</h2>
+                <p>Для поддержания динамики раунда, прибытие отрядов МОГ и Повстанцев Хаоса жестко отрегулировано внутренними алгоритмами:</p>
+                <ul class="wiki-list">
+                    <li><strong>Первая волна:</strong> Прибывает в диапазоне от 3:30 до 4:10 минут с момента начала раунда.</li>
+                    <li><strong>Интервал между волнами:</strong> Составляет ровно 4 минуты, если на Поверхности отсутствуют живые комбатанты противоположной фракции.</li>
+                    <li><strong>Лимиты билетов:</strong> Зависят от успешных побегов Научного персонала и Класса D соответственно.</li>
+                </ul>
+            </section>
+
+            <!-- Секция 3 -->
+            <section id="914-recipes" class="wiki-section">
+                <h2>Конфигурация SCP-914</h2>
+                <p>Машина обмена и улучшений работает по классическим чертежам, однако имеет кастомные настройки для предотвращения быстрого получения снаряжения высшего класса:</p>
+                <p>Улучшение карт доступа в режиме <strong>Fine (Изысканно)</strong>:</p>
+                <ul class="wiki-list">
+                    <li>Карта Ученого → Карта Исследователя Зоны (100% шанс)</li>
+                    <li>Карта Охранника → Карта Инженера (50%) или Карта Лейтенанта МОГ (50%)</li>
+                </ul>
+            </section>
+
+            <!-- Секция 4 -->
+            <section id="server-commands" class="wiki-section">
+                <h2>Доступные консольные команды</h2>
+                <p>Каждый игрок может использовать текстовый чат или консоль (клавиша `~` или `/`) для выполнения следующих запросов:</p>
+                <ul class="wiki-list">
+                    <li><code>.scpswap [номер]</code> — Предложить обмен SCP-объектами во время фазы подготовки.</li>
+                    <li><code>.report [id] [причина]</code> — Отправить анонимную жалобу на нарушителя модераторам в Discord.</li>
+                    <li><code>.pitch</code> — Сбросить настройки голосового мода.</li>
+                </ul>
+            </section>
+
+            <!-- Секция 5 -->
+            <section id="faq" class="wiki-section">
+                <h2>Часто задаваемые вопросы (FAQ)</h2>
+                <p><strong>В: Разрешен ли тимминг между Д-классом и SCP?</strong><br>
+                О: Нет, любое умышленное сотрудничество, мешающее победе одной из фракций, приравнивается к нарушению правил.</p>
+                <p><strong>В: Как часто проводятся технические работы?</strong><br>
+                О: Автоматический перезапуск игровых серверов происходит ежедневно в 04:00 по МСК для очистки кеша и обновления логов.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ПОДВАЛ (Остался без изменений) -->
     <footer>
         <div class="footer-container">
             <div class="footer-info">
@@ -89,28 +275,28 @@
                 <div class="footer-col">
                     <h4>Сайт</h4>
                     <ul>
+                        <li><a href="wiki.html">Wiki</a></li>
                         <li><a href="rules.html">Правила</a></li>
                         <li><a href="#">Для админов</a></li>
                         <li><a href="#">О сервере</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>О сервере</h4>
+                    <h4>Наши Серверы</h4>
                     <ul>
-                        <li><a href="#">Ванильные серверы</a></li>
-                        <li><a href="#">Сервер 1.21</a></li>
-                        <li><a href="#">Без вайпов</a></li>
+                        <li><a href="#">Classic Server</a></li>
+                        <li><a href="#">Custom Modded</a></li>
+                        <li><a href="#">Статистика игроков</a></li>
                         <li><a href="#">Как начать играть</a></li>
-                        <li><a href="#">Настройки</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Полезное</h4>
+                    <h4>Фракции Зоны</h4>
                     <ul>
-                        <li><a href="#">Игра с друзьями</a></li>
-                        <li><a href="#">Выживание онлайн</a></li>
-                        <li><a href="#">Фермы</a></li>
-                        <li><a href="#">Дом в Майнкрафте</a></li>
+                        <li><a href="#">Персонал Класса D</a></li>
+                        <li><a href="#">Научные сотрудники</a></li>
+                        <li><a href="#">Мобильная Опергруппа</a></li>
+                        <li><a href="#">Объекты SCP</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
