@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПДРС | Protocol Revival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
 
+        .rules-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 140px 4% 80px 4%;
+        }
+
+        /* ЛЕВОЕ МЕНЮ НАВИГАЦИИ */
+        .rules-sidebar {
+            position: sticky;
+            top: 120px;
+            height: max-content;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted, #64748b); /* Добавлен fallback цвет, если переменной нет в style.css */
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            color: var(--text-main, #334155);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--bg-dark, #0f172a);
+        }
+
+        /* Цветовые маркеры критичности в меню */
+        .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .dot-critical { background: #ef4444; }
+        .dot-serious { background: #f97316; }
+        .dot-medium { background: #eab308; }
+        .dot-info { background: #3b82f6; }
+        .dot-neutral { background: #64748b; }
+
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .rules-content {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Заголовок страницы и приветствие */
+        .rules-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 40px;
+        }
+
+        .rules-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bg-dark, #0f172a);
+            margin-bottom: 5px;
+        }
+
+        .rules-header .subtitle-project {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--protocol, #3b82f6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .rules-header .subtitle-project1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--revival, #10b981);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .rules-header .subtitle-project2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-pink, #ec4899);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rules-header p {
+            font-style: italic;
+            color: var(--text-muted, #64748b);
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Стилизация разделов */
+        .rules-category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 10px 18px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .bg-critical { background: #ef4444; }
+        .bg-serious { background: #f97316; }
+        .bg-medium { background: #eab308; color: #1e293b; }
+        .bg-info { background: #3b82f6; }
+        .bg-dark { background: #0f172a; }
+
+        /* Карточка контента */
+        .rule-block {
+            background: rgba(15, 23, 42, 0.01);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .rule-block h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--bg-dark, #0f172a);
+            margin-bottom: 12px;
+        }
+
+        .rule-block p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-main, #334155);
+            margin-bottom: 12px;
+        }
+
+        /* Вспомогательные плашки внутри правил */
+        .badge-info {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .badge-exception { background: rgba(16, 185, 129, 0.06); border-left: 3px solid #10b981; color: #047857; }
+        .badge-punishment { background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; color: #b91c1c; }
+        .badge-note { background: rgba(249, 115, 22, 0.06); border-left: 3px solid #f97316; color: #c2410c; }
+
+        /* Списки в документах */
+        .doc-list {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .doc-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: var(--text-main, #334155);
+        }
+
+        .principles-list {
+            padding-left: 20px;
+        }
+        .principles-list li {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            color: var(--text-main, #334155);
+            padding-left: 5px;
+        }
+
+        .rules-footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(15, 23, 42, 0.06);
+            font-style: italic;
+            color: var(--text-muted, #64748b);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        @media (max-width: 992px) {
+            .rules-container { grid-template-columns: 1fr; gap: 30px; padding-top: 110px; }
+            .rules-sidebar { position: relative; top: 0; width: 100%; box-sizing: border-box; }
+            .rules-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav>
+        <a href="../index.html" class="logo">Protocol Revival</a>
+        <div class="nav-links">
+            <a href="../rules.html">Правила</a>
+            <a href="../admin.html">Для админов</a>
+            <a href="../wiki.html">Wiki</a>
+        </div>
+        <a href="../donate.html" class="btn-support">❤ Поддержать сервер</a>
+    </nav>
+
+    <!-- КОНТЕНЕР С ДОКУМЕНТОМ -->
+    <div class="rules-container">
+        
+        <!-- НАВИГАЦИЯ СЛЕВА -->
+        <aside class="rules-sidebar">
+            <div class="sidebar-title">Структура документа</div>
+            <ul class="sidebar-menu">
+                <li><a href="#sec-1"><span class="dot dot-info"></span> I. Общие положения</a></li>
+                <li><a href="#sec-2"><span class="dot dot-info"></span> II. Основания</a></li>
+                <li><a href="#sec-3"><span class="dot dot-info"></span> III. Инициация процесса</a></li>
+                <li><a href="#sec-4"><span class="dot dot-medium"></span> IV. Процедура рассмотрения</a></li>
+                <li><a href="#sec-5"><span class="dot dot-serious"></span> V. Оценка тяжести</a></li>
+                <li><a href="#sec-6"><span class="dot dot-critical"></span> VI. Возможные решения</a></li>
+                <li><a href="#sec-7"><span class="dot dot-neutral"></span> VII. Право на апелляцию</a></li>
+            </ul>
+        </aside>
+
+        <!-- ОСНОВНОЙ ТЕКСТ ДОКУМЕНТА -->
+        <main class="rules-content">
+            
+            <div class="rules-header">
+                <h1>Регламент проекта</h1>
+                    <div class="container">
+                      <div class="subtitle-project">PROTOCOL </div>
+                      <div class="subtitle-project1">REVIVAL</div>
+                    </div>
+                <div class="subtitle-project2">П Д Р С</div>
+                <p>
+                    Порядок Дисциплинарных Разбирательств Сотрудников (ПДРС) устанавливает процедуру рассмотрения каждого индивидуального нарушения со стороны сотрудников проекта.
+                </p>
+            </div>
+
+            <!-- РАЗДЕЛ 1 -->
+            <section id="sec-1" class="rules-category">
+                <div class="category-title bg-info">I. Общие положения</div>
+                
+                <div class="rule-block">
+                    <p>Порядок Дисциплинарных Разбирательств Сотрудников (ПДРС) устанавливает процедуру рассмотрения каждого индивидуального нарушения со стороны сотрудников проекта.</p>
+                    <p>ПДРС применяется в случаях <strong>серьёзных</strong> дисциплинарных нарушений, а также при рассмотрении жалоб на сотрудников со стороны участников проекта или других сотрудников.</p>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 2 -->
+            <section id="sec-2" class="rules-category">
+                <div class="category-title bg-info">II. Основания для начала разбирательства</div>
+                
+                <div class="rule-block">
+                    <p>Основаниями для начала дисциплинарных разбирательств могут быть:</p>
+                    <ul class="doc-list">
+                        <li>Выявление руководством <strong>серьёзного</strong> нарушения #PV</li>
+                        <li>Поступление жалобы от игрока на сотрудника</li>
+                        <li>Поступление жалобы от другого сотрудника</li>
+                        <li>Иные случаи, требующие дисциплинарного рассмотрения</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 3 -->
+            <section id="sec-3" class="rules-category">
+                <div class="category-title bg-info">III. Инициация процесса</div>
+
+                <div class="rule-block">
+                    <p>Инициировать дисциплинарное разбирательство, при наличии соответствующих доказательств, могут:</p>
+                    <ul class="doc-list">
+                        <li>Совет О5</li>
+                        <li>Координаторы</li>
+                        <li>Сотрудники проекта при наличии доказательной базы</li>
+                        <li>Участники проекта при подаче стандартной жалобы</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 4 -->
+            <section id="sec-4" class="rules-category">
+                <div class="category-title bg-medium">IV. Процедура рассмотрения</div>
+
+                <div class="rule-block">
+                    <p>Рассмотрение дисциплинарного нарушения включает следующие этапы:</p>
+                    <ol class="principles-list">
+                        <li>Регистрация факта возможного нарушения</li>
+                        <li>Сбор доказательств</li>
+                        <li>Рассмотрение ситуации Руководством или Советом О5</li>
+                        <li>Оценка степени тяжести нарушения</li>
+                        <li>Вынесение решения по делу</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 5 -->
+            <section id="sec-5" class="rules-category">
+                <div class="category-title bg-serious">V. Оценка тяжести нарушения</div>
+
+                <div class="rule-block">
+                    <p>При рассмотрении дисциплинарного нарушения рассматриваются следующие факторы:</p>
+                    <ul class="doc-list">
+                        <li>Характер нарушения</li>
+                        <li>Масштаб причиненного ущерба</li>
+                        <li>Наличие умысла или неосторожности</li>
+                        <li>Публичность произошедшего</li>
+                        <li>Повторяемость подобных нарушений</li>
+                        <li>Влияние произошедшего на репутацию проекта</li>
+                    </ul>
+                    <div class="badge-info badge-exception">
+                        <strong>Итог оценки:</strong> После оценивания нарушения по каждому из этих факторов, орган рассматривающий дело может вынести соответствующее решение.
+                    </div>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 6 -->
+            <section id="sec-6" class="rules-category">
+                <div class="category-title bg-critical">VI. Возможные решения</div>
+
+                <div class="rule-block">
+                    <p>По итогам рассмотрения дисциплинарного нарушения, по отношению к сотруднику могут быть приняты следующие решения:</p>
+                    <ul class="doc-list">
+                        <li>Отсутствие наказания по отсутствию нарушения</li>
+                        <li>Применение дисциплинарных мер в рамках СОДС</li>
+                        <li>Временное отстранение сотрудника от обязанностей</li>
+                        <li>Вынесение выговора или строгого выговора</li>
+                        <li>Увольнение сотрудника</li>
+                        <li>Внесение в чёрный список проекта</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 7 -->
+            <section id="sec-7" class="rules-category">
+                <div class="category-title bg-dark">VII. Право на апелляцию</div>
+
+                <div class="rule-block">
+                    <p>Сотрудник, в отношении которого было вынесено дисциплинарное решение, имеет право подать апелляцию.</p>
+                    <span class="badge-info badge-note"><strong>Сроки:</strong> Апелляция должна быть подана в течении <strong>семи дней</strong> после вынесения решения.</span>
+                    <p style="margin-top: 15px;">Апелляция рассматривается Советом О5 либо иным уполномоченным органом проекта.</p>
+                </div>
+                
+                <div class="rules-footer-note">Редакция документа актуальна на текущий период.</div>
+            </section>
+
+        </main>
+    </div>
+
+   <!-- ПОДВАЛ (Оставлен без изменений) -->
+   <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <a href="../index.html" class="footer-logo">Protocol Revival</a>
+                <p class="copyright">© 2026 Protocol Revival</p>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Сайт</h4>
+                    <ul>
+                        <li><a href="../rules.html">Правила</a></li>
+                        <li><a href="../admin.html">Для админов</a></li>
+                        <li><a href="../wiki.html">Wiki</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцсети</h4>
+                    <ul>
+                        <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer> 
+
+</body>
+</html>
