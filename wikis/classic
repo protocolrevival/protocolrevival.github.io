@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация Classic | Protocol Revival Wiki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Плавная прокрутка к якорям */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px; /* Отступ сверху, чтобы шапка не перекрывала заголовки */
+        }
+
+        /* Главный контейнер для Вики */
+        .wiki-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 140px 4% 80px 4%;
+        }
+
+        /* ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ */
+        .wiki-sidebar {
+            position: sticky;
+            top: 120px; /* Фиксация при скролле */
+            height: max-content;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 10px 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(59, 130, 246, 0.05);
+            color: var(--accent-blue);
+            padding-left: 18px;
+        }
+
+        /* Состояние для активного/текущего раздела (можно вешать класс через JS, если захочешь) */
+        .sidebar-menu a.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ: КОНТЕНТ */
+        .wiki-content {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Стилизация разделов статьи */
+        .wiki-section {
+            margin-bottom: 60px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 40px;
+        }
+
+        .wiki-section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .wiki-section h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--bg-dark);
+            margin-bottom: 10px;
+        }
+
+        .wiki-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .wiki-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-top: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wiki-section p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        /* Кастомный блок примечания / плашки инфо */
+        .wiki-alert {
+            background: rgba(59, 130, 246, 0.04);
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Стили списков внутри контента */
+        .wiki-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .wiki-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* Адаптивность для мобилок */
+        @media (max-width: 992px) {
+            .wiki-container {
+                grid-template-columns: 1fr; /* Перестраиваем в одну колонку */
+                gap: 30px;
+                padding-top: 110px;
+            }
+
+            .wiki-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .wiki-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ (Осталась без изменений) -->
+    <nav>
+        <a href="index.html" class="logo">Protocol Revival</a>
+        <div class="nav-links">
+            <a href="rules.html">Правила</a>
+            <a href="admin.html">Для админов</a>
+            <a href="wiki.html">Wiki</a>
+        </div>
+        <a href="donate.html" class="btn-support">❤ Поддержать сервер</a>
+    </nav>
+
+    <!-- ОСНОВНОЙ ДВУХКОЛОНОЧНЫЙ БЛОК ВИКИ -->
+    <div class="wiki-container">
+        
+        <!-- ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ -->
+        <aside class="wiki-sidebar">
+            <div class="sidebar-title">Навигация по статье</div>
+            <ul class="sidebar-menu">
+                <li><a href="#about-server">О сервере Classic</a></li>
+                <li><a href="#roles">Кастомные роли</a></li>
+                <li><a href="#SCP">Кастомные SCP</a></li>
+                <li><a href="#server-commands">Команды консоли</a></li>
+                <li><a href="#faq">Частые вопросы</a></li>
+            </ul>
+        </aside>
+
+        <!-- ПРАВАЯ ПАНЕЛЬ С КОНТЕНТОМ -->
+        <main class="wiki-content">
+            
+            <!-- Секция 1 -->
+            <section id="about-server" class="wiki-section">
+                <h1>Сервер Classic</h1>
+                <div class="wiki-meta">Последнее обновление: 22.06.2026</div>
+                <p>
+                    Classic - это базовый сервер проекта Protocol Revival, нацеленный на сохранение оригинальной соревновательной и атмосферной механики SCP: Secret Laboratory с некоторыми улучшениями для комфорта игроков.
+                </p>
+                <div class="wiki-alert">
+                    <strong>Плагины:</strong> На сервер работает множество плагинов для создания более интересного геймплея. Каждый плагин тщательно сбалансирован и не создаёт дисбаланс. 
+                </div>
+            </section>
+
+            <!-- Секция 2 -->
+            <section id="roles" class="wiki-section">
+                <h2>Кастомные роли</h2>
+                <p>Для поддержания динамики, разнообразия геймплея, на сервер были добавлены кастомные роли:</p>
+                <ul class="wiki-list">
+                    <li><strong>Уборщик:</strong> Стартовая роль в Д-блоке, дающая преимущество в виде карты доступа с самого начала игры (доступен при 1 онлайне).</li>
+                    <li><strong>Сержант службы безопасности</strong> Боевая единица в офисной зоне с улучшенным вооружением и броней (появляется при 5 онлайне).</li>
+                    <li><strong>Инженер</strong> Технический специалист, спавнящийся у Micro H.I.D. с полезным стартовым набором для взаимодействия с окружением (шанс 40% при 5 онлайне).</li>
+                    <li><strong>Медик</strong> Роль поддержки со стандартным местом спавна, выделяющаяся повышенным запасом здоровья и набором лечебных средств (шанс 45% при 5 онлайне).</li>
+                    <li><strong>Агент повстанцев хаоса</strong> Внешний диверсант, чья главная цель - помощь классу D; спавнится на улице с арсеналом для проникновения (шанс 40% при 8 онлайне).</li>
+                    <li><strong>Старший научный сотрудник</strong> Редкая и приоритетная роль в Зоне легкого содержания (ЛЗС), обеспечивающая значительное преимущество в начале матча (шанс 10% при 10 онлайне).</li>
+                    <li><strong>Медик МОГ</strong> Специалист медицинской поддержки в составе группы МОГ, обладающий большим арсеналом лечебных препаратов (шанс 50% при волне МОГ, если на сервере от 5 человек).</li>
+                    <li><strong>Боец поддержки МОГ</strong> Тактическая роль в составе МОГ, специализирующаяся на обеспечении союзников боеприпасами и огневой поддержкой (шанс 40% при волне МОГ, если на сервере от 7 человек).</li>
+                </ul>
+            </section>
+
+            <!-- Секция 3 -->
+            <section id="SCP" class="wiki-section">
+                <h2>Кастомные SCP</h2>
+                <p>Для поддержания хоррор атмосферы игры и добавления более разнообразного геймплея, на сервер <strong>планируется</strong> добавить кастомных SCP:</p>
+                <ul class="wiki-list">
+                    <li><strong>SCP-035</strong> Планируется</li>
+                    <li><strong>SCP-457</strong> Планируется</li>
+                    <li><strong>SCP-575</strong> Планируется</li>
+                </ul>
+            </section>
+
+            <!-- Секция 4 -->
+            <section id="server-commands" class="wiki-section">
+                <h2>Доступные консольные команды</h2>
+                <p>Каждый игрок может использовать консоль (клавиша `~`) для выполнения следующих запросов:</p>
+                <ul class="wiki-list">
+                    <li><code>.scpswap [номер]</code> - Изменить SCP-объект на желаемый.</li>
+                    <li><code>.suicide</code> - Умереть, лол.</li>
+                </ul>
+            </section>
+
+            <!-- Секция 5 -->
+            <section id="faq" class="wiki-section">
+                <h2>Часто задаваемые вопросы (FAQ)</h2>
+                <p><strong>В: Разрешен ли тимминг между Д-классом и SCP?</strong><br>
+                О: Нет, любое умышленное сотрудничество, мешающее победе одной из фракций, приравнивается к нарушению правил.</p>
+                <p><strong>В: Как часто проводятся технические работы?</strong><br>
+                О: Автоматический перезапуск игровых серверов происходит ежедневно в 04:00 по МСК для очистки кеша и обновления логов.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ПОДВАЛ (Остался без изменений) -->
+        <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <a href="index.html" class="footer-logo">Protocol Revival</a>
+                <p class="copyright">© 2026 Protocol Revival</p>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Сайт</h4>
+                    <ul>
+                        <li><a href="rules.html">Правила</a></li>
+                        <li><a href="admin.html">Для админов</a></li>
+                        <li><a href="wiki.html">Wiki</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцсети</h4>
+                    <ul>
+                        <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer> 
+
+
+</body>
+</html>
