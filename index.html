@@ -6,6 +6,12 @@
     <title>Protocol Revival | SCP: Secret Laboratory</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
 
@@ -16,7 +22,10 @@
             <a href="#">Для админов</a>
             <a href="wiki.html">Wiki</a>
         </div>
-        <a href="donate.html" class="btn-support">❤ Поддержать сервер</a>
+        <div class="nav-right">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Переключить тему">🌙</button>
+            <a href="donate.html" class="btn-support">❤ Поддержать сервер</a>
+        </div>
     </nav>
 
     <header class="hero">
@@ -54,7 +63,8 @@
             </svg>
         </a>
     </header>
-    <section class="features">
+
+    <section id="features" class="features">
         <h2 class="features-title">Почему <span>Protocol Revival?</span></h2>
         <div class="cards-grid">
 
@@ -99,36 +109,36 @@
                 <div class="footer-col">
                     <h4>Сайт</h4>
                     <ul>
-                        <li><a href="#">Правила</a></li>
+                        <li><a href="rules.html">Правила</a></li>
                         <li><a href="#">Для админов</a></li>
-                        <li><a href="#">О сервере</a></li>
+                        <li><a href="wiki.html">Wiki</a></li>
+                        <li><a href="donate.html">Донат</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>О сервере</h4>
                     <ul>
-                        <li><a href="#">Ванильные серверы</a></li>
-                        <li><a href="#">Сервер 1.21</a></li>
-                        <li><a href="#">Без вайпов</a></li>
+                        <li><a href="wiki-classic.html">Сервер Classic</a></li>
+                        <li><a href="#">Сервер MRP (Скоро)</a></li>
+                        <li><a href="#">Кастомные плагины</a></li>
                         <li><a href="#">Как начать играть</a></li>
-                        <li><a href="#">Настройки</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Полезное</h4>
                     <ul>
-                        <li><a href="#">Игра с друзьями</a></li>
-                        <li><a href="#">Выживание онлайн</a></li>
-                        <li><a href="#">Фермы</a></li>
-                        <li><a href="#">Дом в Майнкрафте</a></li>
+                        <li><a href="#">Роли и фракции</a></li>
+                        <li><a href="#">Механики SCP-914</a></li>
+                        <li><a href="#">Команды сервера</a></li>
+                        <li><a href="#">Зоны комплекса</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Соцсети</h4>
                     <ul>
-                        <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
-                        <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
-                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
+                        <li><a href="https://discord.com/invite/2nnCaWf9GY" target="_blank">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@DesolationSCP" target="_blank">Youtube</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject" target="_blank">TikTok</a></li>
                     </ul>
                 </div>
             </div>
@@ -136,18 +146,16 @@
     </footer>
 
     <script>
+        // Скрипт копирования IP
         function copyIp(button) {
             const ip = button.getAttribute('data-ip');
-            // Ищем внутри кнопки именно блок с текстом IP
             const ipSpan = button.querySelector('.server-ip');
             const originalText = ipSpan.innerText;
 
             navigator.clipboard.writeText(ip).then(() => {
-                // Меняем текст и добавляем класс для зеленой подсветки
                 ipSpan.innerText = 'Скопировано!';
                 button.classList.add('copied');
                 
-                // Возвращаем как было через 2 секунды
                 setTimeout(() => {
                     ipSpan.innerText = originalText;
                     button.classList.remove('copied');
@@ -156,6 +164,27 @@
                 console.error('Ошибка при копировании: ', err);
             });
         }
+
+        // Скрипт переключения темы
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // Устанавливаем правильную иконку при загрузке
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            themeToggleBtn.textContent = '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.textContent = '☀️';
+            }
+        });
     </script>
 
 </body>
