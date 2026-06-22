@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для админов | Protocol Revival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Специфичные стили для Wiki-хаба */
+        .wiki-hub-section {
+            padding: 140px 6% 80px 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 75vh;
+        }
+
+        /* Блок об истории/крутости проекта в начале */
+        .wiki-intro-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wiki-intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-blue);
+        }
+
+        .wiki-intro-card h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--bg-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .wiki-intro-card h1 span {
+            color: var(--accent-blue);
+        }
+
+        .wiki-intro-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .wiki-intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Заголовок перед карточками */
+        .hub-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--bg-dark);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hub-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: rgba(15, 23, 42, 0.08);
+        }
+
+        /* Сетка и карточки */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .hub-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hub-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card-banner {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Градиенты для баннеров серверов */
+        .banner-classic { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .banner-survival { background: linear-gradient(135deg, #10b981, #047857); }
+        .banner-creative { background: linear-gradient(135deg, #8b5cf6, #5b21b6); }
+
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .wiki-hub-section { padding: 110px 4% 60px 4%; }
+            .wiki-intro-card { padding: 25px; }
+            .wiki-intro-card h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">Protocol Revival</a>
+        <div class="nav-links">
+            <a href="rules.html">Правила</a>
+            <a href="admin.html">Для админов</a>
+            <a href="wiki.html">Wiki</a>
+        </div>
+        <a href="donate.html" class="btn-support">❤ Поддержать сервер</a>
+    </nav>
+
+    <section class="wiki-hub-section">
+        
+        <div class="wiki-intro-card">
+            <h1>Добро пожаловать в <span>Protocol Revival Wiki</span></h1>
+            <p>
+                Добро пожаловать в единую базу знаний Protocol Revival. Наш проект объединяет фанатов вселенной SCP, предлагая стабильный сетевой код, оптимизированные плагины и уникальный игровой опыт. Мы заботимся о балансе классов, адекватной администрации и атмосфере игры.
+            </p>
+            <p>
+                В этой Вики собрана вся необходимая документация как для новоприбывших игроков, так и для наших ветеранов. Здесь вы найдете подробные гайды по всем нашим кастомным механикам.
+            </p>
+        </div>
+
+        <h2 class="hub-title">Базы знаний игровых серверов</h2>
+
+        <div class="hub-grid">
+            
+            <a href="wiki-classic.html" class="hub-card">
+                <div class="card-banner banner-classic">Classic</div>
+                <div class="card-body">
+                    <h3>Вики сервера Classic</h3>
+                    <p>Сервер с классическими правилами и разнообразными плагинами для создания интересного геймплея</p>
+                    <div class="card-footer">
+                        <span>📖 Открыть базу знаний</span>
+                        <span></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="hub-card">
+                <div class="card-banner banner-survival">MRP</div>
+                <div class="card-body">
+                    <h3>Вики сервера MRP</h3>
+                    <p></p>
+                    <div class="card-footer">
+                        <span>🔒 В разработке</span>
+                        <span></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <a href="index.html" class="footer-logo">Protocol Revival</a>
+                <p class="copyright">© 2026 Protocol Revival</p>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4></h4>
+                    <ul>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Сайт</h4>
+                    <ul>
+                        <li><a href="rules.html">Правила</a></li>
+                        <li><a href="admin.html">Для админов</a></li>
+                        <li><a href="wiki.html">Wiki</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцсети</h4>
+                    <ul>
+                        <li><a href="https://discord.com/invite/2nnCaWf9GY">Discord</a></li>
+                        <li><a href="https://www.youtube.com/@DesolationSCP">Youtube</a></li>
+                        <li><a href="https://www.tiktok.com/@desolationproject">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer> 
+
+
+</body>
+</html>
