@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила сервера Classic Plus | Protocol Revival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 140px 4% 80px 4%;
+        }
+
+        /* ЛЕВОЕ МЕНЮ НАВИГАЦИИ */
+        .rules-sidebar {
+            position: sticky;
+            top: 120px;
+            height: max-content;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--bg-dark);
+        }
+
+        /* Цветовые маркеры критичности в меню */
+        .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; shrink: 0; }
+        .dot-critical { background: #ef4444; }
+        .dot-serious { background: #f97316; }
+        .dot-medium { background: #eab308; }
+        .dot-info { background: #3b82f6; }
+
+        /* ОСНОВНОЙ КОНТЕНТ */
+        .rules-content {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Заголовок страницы и приветствие */
+        .rules-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 40px;
+        }
+
+        .rules-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bg-dark);
+            margin-bottom: 5px;
+        }
+
+        .rules-header .subtitle-project {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .rules-header p {
+            font-style: italic;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Стилизация разделов */
+        .rules-category {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 10px 18px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .bg-critical { background: #ef4444; }
+        .bg-serious { background: #f97316; }
+        .bg-medium { background: #eab308; color: #1e293b; }
+        .bg-info { background: #3b82f6; }
+
+        /* Карточка каждого правила */
+        .rule-block {
+            background: rgba(15, 23, 42, 0.01);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .rule-block h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-bottom: 12px;
+        }
+
+        .rule-block p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        /* Вспомогательные плашки внутри правил */
+        .badge-info {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .badge-exception { background: rgba(16, 185, 129, 0.06); border-left: 3px solid #10b981; color: #047857; }
+        .badge-punishment { background: rgba(239, 68, 68, 0.05); border-left: 3px solid #ef4444; color: #b91c1c; }
+        .badge-note { background: rgba(249, 115, 22, 0.06); border-left: 3px solid #f97316; color: #c2410c; }
+
+        .rule-sublist {
+            margin: 8px 0 8px 20px;
+            padding: 0;
+        }
+        .rule-sublist li {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        /* ТАБЛИЦА ОТНОШЕНИЙ */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .relations-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .relations-table th, .relations-table td {
+            padding: 14px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .relations-table th {
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--bg-dark);
+            font-weight: 700;
+        }
+
+        .relations-table td:first-child, .relations-table th:first-child {
+            font-weight: 700;
+            background: rgba(15, 23, 42, 0.01);
+            text-align: left;
+        }
+
+        /* Статусы в таблице */
+        .status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .status-ally { background: rgba(16, 185, 129, 0.15); color: #065f46; }
+        .status-neutral { background: rgba(148, 163, 184, 0.15); color: #334155; }
+        .status-enemy { background: rgba(239, 68, 68, 0.15); color: #991b1b; }
+
+        .table-legend {
+            font-size: 0.85rem;
+            margin-top: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ФУНДАМЕНТАЛЬНЫЕ ПРИНЦИПЫ */
+        .principles-list {
+            padding-left: 20px;
+        }
+        .principles-list li {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .rules-footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(15, 23, 42, 0.06);
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        @media (max-width: 992px) {
+            .rules-container { grid-template-columns: 1fr; gap: 30px; padding-top: 110px; }
+            .rules-sidebar { position: relative; top: 0; width: 100%; box-sizing: border-box; }
+            .rules-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav>
+        <a href="index.html" class="logo">Protocol Revival</a>
+        <div class="nav-links">
+            <a href="wiki.html">Wiki</a>
+            <a href="rules.html" style="background-color: rgba(255, 255, 255, 0.12); color: #ffffff;">Правила</a>
+            <a href="#">Для админов</a>
+            <a href="#">О проекте</a>
+        </div>
+        <a href="#" class="btn-support">❤ Поддержать сервер</a>
+    </nav>
+
+    <!-- КОНТЕНЕР С ПРАВИЛАМИ -->
+    <div class="rules-container">
+        
+        <!-- НАВИГАЦИЯ СЛЕВА -->
+        <aside class="rules-sidebar">
+            <div class="sidebar-title">Категории правил</div>
+            <ul class="sidebar-menu">
+                <li><a href="#cat-1"><span class="dot dot-critical"></span> I. Критические</a></li>
+                <li><a href="#cat-2"><span class="dot dot-serious"></span> II. Серьёзные</a></li>
+                <li><a href="#cat-3"><span class="dot dot-medium"></span> III. Средней тяжести</a></li>
+                <li><a href="#cat-table"><span class="dot dot-info"></span> Таблица отношений</a></li>
+                <li><a href="#cat-principles"><span class="dot dot-info"></span> Принципы</a></li>
+            </ul>
+        </aside>
+
+        <!-- ОСНОВНОЙ ТЕКСТ С ПРАВИЛАМИ -->
+        <main class="rules-content">
+            
+            <div class="rules-header">
+                <h1>Правила сервера</h1>
+                <div class="subtitle-project">Protocol Revival Classic</div>
+                <p>
+                    Для сохранения здорового и честного сообщества, наш проект придерживается принципов взаимного уважения, честной игры и соблюдения баланса. Играя на нашем сервере, Вы автоматически принимаете все нижеизложенные правила сервера.
+                </p>
+            </div>
+
+            <!-- РАЗДЕЛ 1 -->
+            <section id="cat-1" class="rules-category">
+                <div class="category-title bg-critical">I. Критические нарушения</div>
+                
+                <div class="rule-block">
+                    <h3>RC1. Использование стороннего ПО</h3>
+                    <p>Запрещено использование программ, скриптов, прочих модификаций, дающих преимущество в игре.</p>
+                    <span class="badge-info badge-exception"><strong>Исключение:</strong> Программы, выводящие на экран прицел оружия без увеличения, и прочие необходимые для людей с особыми потребностями разрешены.</span>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Перманентная блокировка.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC2. Рейдерская деятельность</h3>
+                    <p>Запрещены любые действия, направленные на умышленное нарушение работы сервера, массовое нарушение правил и срыв игрового процесса.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Перманентная блокировка.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC3. Обход наказаний</h3>
+                    <p>Запрещены попытки обхода выданных наказаний какими-либо способами (смена IP, создание альтернативных аккаунтов, иные способы уклонения).</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Перманентная блокировка.</span>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 2 -->
+            <section id="cat-2" class="rules-category">
+                <div class="category-title bg-serious">II. Серьёзные игровые нарушения</div>
+
+                <div class="rule-block">
+                    <h3>RC4. Использование игровых уязвимостей</h3>
+                    <p>Запрещено использование ошибок/багов на карте и каких-либо механик для получения преимущества во время раунда. О найденных багах необходимо сообщать администрации сервера.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 12 часов → 3 дня → 7 дней.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC5. Тимминг между враждебными классами</h3>
+                    <p>Запрещена кооперация между враждебными друг к другу классами. В самом низу документа Вы можете ознакомиться с таблицей отношений между классами на нашем сервере.</p>
+                    <span class="badge-info badge-exception"><strong>Исключение:</strong> Тимминг разрешён, когда на сервере онлайн равняется двум людям.</span>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 3 часа → 1 день → 3 дня.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC6. Призыв к нарушению правил</h3>
+                    <p>Запрещено подстрекать игроков к нарушению правил сервера.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 1 день → 3 дня → 7 дней.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC7. Препятствие работе администрации</h3>
+                    <p>Запрещено умышленное вмешательство в разбирательства, введение администрации в заблуждение и помеха при проведении мероприятий. Нарушение правил отдельных ивентов также попадает под этот пункт.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 1 день → 3 дня → 7 дней.</span>
+                </div>
+            </section>
+
+            <!-- РАЗДЕЛ 3 -->
+            <section id="cat-3" class="rules-category">
+                <div class="category-title bg-medium">III. Нарушения средней тяжести</div>
+
+                <div class="rule-block">
+                    <h3>RC8. Реклама сторонних ресурсов</h3>
+                    <p>Запрещена реклама других игровых проектов, серверов и прочих сторонних ресурсов.</p>
+                    <span class="badge-info badge-exception"><strong>Исключение:</strong> Простое упоминание без цели продвижения не является нарушением.</span>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 3 часа → 12 часов → 3 дня → 7 дней.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC9. Токсичное поведение</h3>
+                    <p>Запрещены прямые и косвенные оскорбления, унижение достоинства игроков, а также намеренное разжигание конфликтов на личной, политической, национальной или религиозной почве.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 3 часа → 7 дней → 14 дней.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC10. Трансляция раздражающих звуков</h3>
+                    <p>Запрещена трансляция звуков, препятствующих коммуникации между игроками, нарушающих игровой процесс или создающих массовый дискомфорт.</p>
+                    <div class="badge-info badge-note">
+                        <strong>Примечания:</strong>
+                        <ul class="rule-sublist">
+                            <li>Нарушение фиксируется лишь при наличии от двух жалоб.</li>
+                            <li>При просьбе от двух игроков Вы обязаны прекратить трансляцию.</li>
+                        </ul>
+                    </div>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 1 день → 3 дня → 7 дней.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC11. Нахождение в AFK</h3>
+                    <p>Запрещено бездействие, которое напрямую мешает игровому процессу.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Кик.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC12. Затягивание раунда</h3>
+                    <p>Запрещено умышленное затягивание раунда без наличия игровой цели.</p>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → перевод в наблюдатели / кик → блокировка на 3 часа.</span>
+                </div>
+
+                <div class="rule-block">
+                    <h3>RC13. Убийство нейтральных классов</h3>
+                    <p>Запрещено безосновательное убийство нейтральных классов.</p>
+                    <div class="badge-info badge-note">
+                        <strong>Основаниями для убийства могут быть:</strong>
+                        <ul class="rule-sublist">
+                            <li>Неповиновение</li>
+                            <li>Наличие у нейтрального класса оружия</li>
+                            <li>Угроза собственной безопасности</li>
+                        </ul>
+                    </div>
+                    <span class="badge-info badge-punishment"><strong>Наказание:</strong> Предупреждение → блокировка на 3 часа → 12 часов → 3 дня.</span>
+                </div>
+            </section>
+
+            <!-- ТАБЛИЦА ОТНОШЕНИЙ -->
+            <section id="cat-table" class="rules-category">
+                <div class="category-title bg-info">Таблица отношений классов</div>
+                <div class="table-responsive">
+                    <table class="relations-table">
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th style="color: #f97316;">Д-класс</th>
+                                <th style="color: #eab308;">Учёные</th>
+                                <th style="color: #3b82f6;">СБ/МОГ</th>
+                                <th style="color: #10b981;">Повстанцы</th>
+                                <th style="color: #ef4444;">SCP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Д-класс</td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                            </tr>
+                            <tr>
+                                <td>Учёные</td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                            </tr>
+                            <tr>
+                                <td>СБ/МОГ</td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                            </tr>
+                            <tr>
+                                <td>Повстанцы</td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                            </tr>
+                            <tr>
+                                <td>SCP</td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                                <td><span class="status status-enemy">Враги</span></td>
+                                <td><span class="status status-neutral">Нейтрал</span></td>
+                                <td><span class="status status-ally">Союзники</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-legend">
+                    🔹 <strong>Союзники</strong> — кооперация между классами полностью разрешена.<br>
+                    🔹 <strong>Нейтрал</strong> — взаимодействие без обязательной конфронтации.<br>
+                    🔹 <strong>Враги</strong> — кооперация запрещена.
+                </div>
+            </section>
+
+            <!-- ФУНДАМЕНТАЛЬНЫЕ ПРИНЦИПЫ -->
+            <section id="cat-principles" class="rules-category">
+                <div class="category-title bg-info">Фундаментальные принципы</div>
+                <ol class="principles-list">
+                    <li>При обнаружении какого-либо из нарушений правил игроками, Вы можете подать жалобу на нашем Дискорд сервере в соответствующем канале.</li>
+                    <li>В случае частых, повторных нарушений тех или иных пунктов, наказание за них может быть увеличено.</li>
+                    <li>Если у Вас возникли какие-либо вопросы касательно правил, Вы имеете полное право обратиться к какому-либо из администраторов на сервере.</li>
+                </ol>
+                <div class="rules-footer-note">Правила вступили в силу: 26.04.2026.</div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <a href="index.html" class="footer-logo">Protocol Revival</a>
+                <p class="copyright">© 2026 Protocol Revival</p>
+            </div>
+            <!-- Ссылки подвала из прошлых шаблонов -->
+        </div>
+    </footer>
+
+</body>
+</html>
