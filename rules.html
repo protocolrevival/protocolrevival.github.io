@@ -212,3 +212,45 @@
 
 </body>
 </html>
+<script>
+        // Скрипт копирования IP
+        function copyIp(button) {
+            const ip = button.getAttribute('data-ip');
+            const ipSpan = button.querySelector('.server-ip');
+            const originalText = ipSpan.innerText;
+
+            navigator.clipboard.writeText(ip).then(() => {
+                ipSpan.innerText = 'Скопировано!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    ipSpan.innerText = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Ошибка при копировании: ', err);
+            });
+        }
+
+        // Скрипт переключения темы
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // Устанавливаем правильную иконку при загрузке
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            themeToggleBtn.textContent = '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.textContent = '☀️';
+            }
+        });
+    </script>
+
