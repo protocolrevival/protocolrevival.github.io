@@ -10,6 +10,8 @@
     --card-bg: #ffffff;
     --nav-bg: rgba(15, 23, 42, 0.3);
     --border-color: rgba(255, 255, 255, 0.1);
+    --protocol: #6d9eeb;
+    --revival: #0b5394;
 }
 
 * {
